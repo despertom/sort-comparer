@@ -20,7 +20,8 @@ map<string, long long> sortingAlgorithms = {
         {"quick", 0},
         {"merge", 0},
         {"insertion", 0},
-        {"selection", 0}
+        {"selection", 0},
+        {"heap", 0}
 };
 
 string resolveFilePath(const string& filename);
@@ -266,6 +267,8 @@ void performSorting(const string& sortName, vector<int>& data) {
         Sorts::insertionSort(data);
     } else if (sortName == "selection") {
         Sorts::selectionSort(data);
+    } else if (sortName == "heap") {
+        Sorts::heapSort(data);
     }
 
     auto end = chrono::high_resolution_clock::now();
