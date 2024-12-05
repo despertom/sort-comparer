@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <chrono>
 #include <filesystem>
+#include <random>
+#include <unordered_set>
 #include "sorts.h"
 
 //leonardo Starfire
@@ -120,10 +122,19 @@ vector<int> loadDataFromFile(const string& filename) {
 }
 
 //Generate random data
-vector<int> generateRandomData(size_t size, int min, int max) {
-    vector<int> data(size);
-    for (size_t i = 0; i < size; ++i) {
-        data[i] = min + rand() % (max - min + 1);
+vector<int> generateRandomData(size_t size, int min, int max, unsigned int seed){
+    if(seed == 0){
+        seed = random_device{}();
+    }
+    mt19937 gen(seed);
+    uniform_int_distribution<> dis(min, max);
+    unordered_set<int> numsUnique;
+    vector<int> data;
+    while(numsUniqe.size() < size){
+        int num = dis(gen);
+        if(numsUnique.insert(num).second){
+            data.push_back(num);
+        }
     }
     return data;
 }
@@ -143,6 +154,7 @@ vector<int> generateRandomDataInput() {
         string sizeStr, minStr, maxStr;
         size_t size;
         int min, max;
+        unsigned int seed;
 
         cout << "Enter the number of elements to generate:" << endl;
         cin >> sizeStr;
@@ -183,7 +195,15 @@ vector<int> generateRandomDataInput() {
             continue;
         }
 
-        return generateRandomData(size, min, max);
+        cout << "Enter a seed (or 0 for a random seed):" << endl;
+        cin >> seedStr;
+
+        if(!isNumber(seedStr)){
+            cout << "Error: Invalid input. Please enter a valid number." << endl << endl;
+            continue;
+        }
+        seed = stoi(seedStr);
+        return generateRandomData(size, min, max, seed);
     }
 }
 
