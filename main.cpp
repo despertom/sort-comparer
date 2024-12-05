@@ -130,7 +130,7 @@ vector<int> generateRandomData(size_t size, int min, int max, unsigned int seed)
     uniform_int_distribution<> dis(min, max);
     unordered_set<int> numsUnique;
     vector<int> data;
-    while(numsUniqe.size() < size){
+    while(numsUnique.size() < size){
         int num = dis(gen);
         if(numsUnique.insert(num).second){
             data.push_back(num);
@@ -151,7 +151,7 @@ bool isNumber(const string& str) {
 //Handle user input for generating random data
 vector<int> generateRandomDataInput() {
     while (true) {
-        string sizeStr, minStr, maxStr;
+        string sizeStr, minStr, maxStr, seedStr;
         size_t size;
         int min, max;
         unsigned int seed;
