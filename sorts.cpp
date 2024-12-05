@@ -1,6 +1,7 @@
 // dylan esperto
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "sorts.h"
 
 // Partition method for quicksort.
@@ -101,11 +102,40 @@ void Sorts::insertionSort(std::vector<int> &toSort) {
     }
 }
 
+void Sorts::heapify(std::vector<int> &toSort, int n, int i) {
+    int root = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+
+    if(left < n && toSort[left] > toSort[root]){
+        root = left;
+    }
+    if(right < n && toSort[right] > toSort[root]){
+        root = right;
+    }
+    if(root != i){
+        std::swap(toSort[i], toSort[root]);
+        heapify(toSort, n, root);
+    }
+}
+
+void Sorts::heapSort(std::vector<int> &toSort) {
+    int n = toSort.size();
+    for(int i = n/2-1; i>=0; i--){
+        heapify(toSort, n, i);
+    }
+    for(int i = n-1; i>0; i--){
+        std::swap(toSort[0], toSort[i]);
+        heapify(toSort, i, 0);
+    }
+}
+
 void Sorts::printVector(std::vector<int> &vec) {
     for (int i : vec)
         std::cout << i << " ";
     std::cout << std::endl;
 }
+
 
 // int main() {
 //     {

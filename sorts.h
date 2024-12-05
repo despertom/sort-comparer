@@ -11,5 +11,7 @@ public:
     static void bubbleSort(std::vector<int> &toSort);
     static void selectionSort(std::vector<int> &toSort);
     static void insertionSort(std::vector<int> &toSort);
+    static void heapify(std::vector<int> &toSort, int n, int i);
+    static void heapSort(std::vector<int> &toSort);
     static void printVector(std::vector<int> &vec);
 };
